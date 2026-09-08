@@ -6,8 +6,12 @@ no dependencies. Upload the folder to your host and it works.
 ```
 index.html    all the copy
 styles.css    all the colours, spacing and layout
-main.js       the countdown, the trailer and the form (one CONFIG block at the top)
+main.js       the countdown, the menu, the trailer and the form (one CONFIG block)
 ```
+
+Sections, in page order: **hero + opt-in form → About the game → Trailer →
+Products → Support → FAQ → closing CTA**. Every one of them has its own `id`,
+so the header menu and any link you add elsewhere can point straight at it.
 
 ---
 
@@ -51,9 +55,14 @@ an error.
 *Prefer something else?* ConvertKit, Beehiiv, Buttondown and MailerLite all work
 the same way — tell me which and I'll swap the one function over.
 
-### 2. Set the countdown date
+### 2. The beta date (when you have one)
 
-`main.js`:
+The page ships with **no date**, because you don't have one yet. The hero panel
+reads *"Registration open — first wave date to be announced"*, which is true
+today and needs no maintenance.
+
+The moment you do have a date, put it in `main.js` and the same panel becomes a
+live countdown on its own:
 
 ```js
 launchISO: "2026-10-15T18:00:00Z",   // UTC
@@ -61,8 +70,9 @@ launchISO: "2026-10-15T18:00:00Z",   // UTC
 launchISO: "2026-10-15T18:00:00+01:00",
 ```
 
-Set it to `""` and the countdown block disappears cleanly. If the date passes,
-the page says the date has passed instead of showing a frozen `00 00 00 00`.
+Set it back to `""` and you're returned to the "to be announced" panel. If the
+date passes while the site is up, the page falls back to that panel rather than
+sitting on a frozen `00 00 00 00`.
 
 ### 3. Add the trailer
 
@@ -95,12 +105,31 @@ them. Sections are signposted with comments:
 ```html
 <!-- ================= HERO ================= -->
 <!-- ================= OPT-IN FORM ================= -->
+<!-- ================= ABOUT THE GAME ================= -->
 <!-- ================= TRAILER ================= -->
+<!-- ================= PRODUCTS ================= -->
+<!-- ================= SUPPORT ================= -->
 <!-- ================= FAQ ================= -->
 ```
 
 **Adding an FAQ item** — copy one whole `<details class="qa">…</details>` block
 and edit it. Remove `open` from the first one if you'd rather they all start closed.
+
+**Products** — three `<article class="prod">` cards. Copy one to add a fourth;
+they reflow on their own, no grid maths needed. `prod--feature` is the
+gold-bordered one — move that class to whichever card you want emphasised.
+Every button currently points at `#register`, so a click feeds the email list.
+When you actually have something to sell, change the `href` to your checkout.
+
+**Support** — three `<article class="sup">` rows. Replace each
+`href="#"` with a real destination (`mailto:`, a help-desk URL, a Discord
+invite) and delete the black bar inside it.
+
+**About** — one lead paragraph and three `<article class="pillar">` cards.
+
+**The menu** — the header links live in `<nav id="navPanel">`. Add or remove an
+`<a href="#section">` there and the mobile menu picks it up automatically; there
+is no separate mobile list to keep in sync.
 
 **Replacing a black bar** — delete the `<i class="rd …"></i>` tag and type your
 text in its place.
@@ -147,14 +176,15 @@ Two things worth doing on your host:
 
 ## What it does for conversions
 
-* One goal per screen — the email field is the only thing above the fold that
-  can be clicked apart from the two nav links.
-* The form appears twice (hero, and the closing block) plus a header button.
+* The email field is above the fold at every width tested — nobody has to
+  scroll to find the one thing the page is for.
+* Every route through the page ends at the same form: the header button, the
+  three Products buttons and the closing CTA all point at `#register`.
 * Click-to-load video: the page paints before the visitor decides to leave.
 * The FAQ answers the two objections that actually cost signups —
   *what is this* and *when do I get in* — right next to a repeated CTA.
-* Countdown is optional and quiet by design; a loud one reads as a gimmick and
-  costs trust on a page asking for an email.
+* No countdown while there's no date. A timer counting to nothing, or one that
+  has visibly expired, costs more trust than it buys.
 
 ---
 
@@ -164,5 +194,6 @@ Two things worth doing on your host:
   the video and the inline form response need JS).
 * Respects `prefers-reduced-motion` — every animation stops.
 * Keyboard navigable, visible focus rings, labelled form field, live-region
-  status message.
-* Tested at 390px, 768px, 1280px and 1600px wide.
+  status message. The mobile menu reports `aria-expanded` and closes on Escape.
+* Verified at 390px, 768px and 1280px: no element overflows its own box, and
+  every menu link lands its section clear of the sticky header.

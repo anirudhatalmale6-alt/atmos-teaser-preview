@@ -12,9 +12,10 @@ var CONFIG = {
      Set the real launch moment in ISO 8601 form.
      The "Z" means UTC — for a local time use an offset instead,
      e.g. "2026-10-15T18:00:00+01:00".
-     Set to "" (empty string) to hide the countdown entirely.
+     Leave it as "" and the panel simply reads "date to be announced",
+     which is the state the page ships in.
      ----------------------------------------------------------- */
-  launchISO: "2026-10-15T18:00:00Z",   // <-- PLACEHOLDER DATE
+  launchISO: "",   // no date yet -> the panel reads "date to be announced"
 
   /* -----------------------------------------------------------
      2. TRAILER
@@ -91,15 +92,22 @@ var CONFIG = {
      ========================================================= */
   (function countdown() {
     var box  = $("#countdown");
+    var tba  = $("#cdTba");
     var note = $("#cdNote");
-    if (!box) return;
+    if (!box || !tba) return;
 
+    // the "to be announced" panel is the default in the CSS, so every path here
+    // only has to decide whether to REPLACE it with a live clock
     var target = CONFIG.launchISO ? new Date(CONFIG.launchISO) : null;
 
-    // no date, or an unparseable one -> don't show a fake clock
     if (!target || isNaN(target.getTime())) {
-      box.style.display = "none";
-      if (note) note.textContent = "Countdown hidden — set CONFIG.launchISO in main.js to switch it on.";
+      if (note && CONFIG.launchISO) {
+        note.textContent = "CONFIG.launchISO in main.js could not be read as a date, so the countdown is off.";
+      }
+      return;
+    }
+    if (target.getTime() - Date.now() <= 0) {
+      if (note) note.textContent = "The countdown date has passed — update CONFIG.launchISO in main.js.";
       return;
     }
 
@@ -109,9 +117,10 @@ var CONFIG = {
     var tick = function () {
       var left = target.getTime() - Date.now();
 
-      // past the date: say so rather than sitting on 00 00 00 00
+      // rolled past the date while someone had the page open: fall back to the panel
       if (left <= 0) {
-        box.style.display = "none";
+        box.classList.remove("is-on");
+        tba.classList.remove("is-off");
         if (note) note.textContent = "The countdown date has passed — update CONFIG.launchISO in main.js.";
         clearInterval(timer);
         return;
@@ -124,7 +133,45 @@ var CONFIG = {
     };
 
     tick();
+    box.classList.add("is-on");
+    tba.classList.add("is-off");
+    if (note) note.textContent = "Counting down to " + target.toLocaleString();
     var timer = setInterval(tick, 1000);
+  })();
+
+  /* =========================================================
+     MOBILE NAV
+     ========================================================= */
+  (function nav() {
+    var btn   = $("#navToggle");
+    var panel = $("#navPanel");
+    if (!btn || !panel) return;
+
+    var set = function (open) {
+      document.body.classList.toggle("nav-open", open);
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+
+    btn.addEventListener("click", function () {
+      set(!document.body.classList.contains("nav-open"));
+    });
+
+    // a link inside the panel should close it on the way to the section
+    panel.addEventListener("click", function (e) {
+      if (e.target.closest("a")) set(false);
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && document.body.classList.contains("nav-open")) {
+        set(false);
+        btn.focus();
+      }
+    });
+
+    // leaving the mobile breakpoint must not strand the page in the open state
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 860) set(false);
+    });
   })();
 
   /* =========================================================
