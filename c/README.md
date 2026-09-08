@@ -1,4 +1,9 @@
-# Beta registry landing page
+# Beta registry landing page — Vault Deco direction
+
+*The expensive one. Deep green felt, gold leaf, symmetry and ornament — a members' room rather than a case file.*
+
+This folder is self-contained. Upload these three files and it works;
+the other two directions are alternatives, not dependencies.
 
 A single, self-contained squeeze page. Three files, no build step, no framework,
 no dependencies. Upload the folder to your host and it works.

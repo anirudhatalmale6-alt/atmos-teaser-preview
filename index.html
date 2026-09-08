@@ -1,460 +1,86 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Beta Registry — Preview Build</title>
-<meta name="description" content="Preview build of a beta-registration landing page. All copy and imagery are placeholders.">
+<title>Three directions — preview</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{ box-sizing:border-box }
+body{ margin:0; background:#070a0d; color:#e7ecf3;
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:15px; line-height:1.7 }
+a{ color:inherit; text-decoration:none }
+.bar{ display:flex; gap:10px; align-items:center; padding:9px clamp(18px,4.5vw,40px);
+  background:#1c1408; border-bottom:1px solid rgba(211,169,79,.3); color:#e2c68a;
+  font-size:11.5px; letter-spacing:.04em; line-height:1.45 }
+.bar i{ width:7px; height:7px; border-radius:50%; background:#d3a94f; flex:0 0 auto;
+  box-shadow:0 0 0 3px rgba(211,169,79,.18) }
+.wrap{ max-width:1160px; margin-inline:auto; padding:clamp(40px,6vw,72px) clamp(18px,4.5vw,40px) }
+h1{ font-family:"Instrument Serif",Georgia,serif; font-weight:400;
+  font-size:clamp(34px,5.4vw,60px); line-height:1.05; margin:0 0 14px; letter-spacing:-.015em }
+.lede{ margin:0 0 8px; color:#97a4b4; max-width:60ch; font-size:14.5px }
+.note{ margin:0 0 clamp(30px,4vw,46px); color:#64707f; max-width:60ch; font-size:12.5px }
+.grid{ display:grid; gap:clamp(16px,2.4vw,26px);
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr)) }
+.card{ display:flex; flex-direction:column; min-width:0; overflow:hidden;
+  background:linear-gradient(180deg,#16202b,#101720); border:1px solid rgba(200,214,232,.13);
+  border-radius:3px; transition:border-color .25s ease, transform .25s ease }
+.card:hover{ border-color:rgba(211,169,79,.5); transform:translateY(-3px) }
+.card img{ display:block; width:100%; height:auto; border-bottom:1px solid rgba(200,214,232,.1) }
+.body{ padding:22px; display:flex; flex-direction:column; flex:1 1 auto }
+.letter{ font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:#64707f;
+  margin:0 0 10px }
+.name{ font-family:"Instrument Serif",Georgia,serif; font-weight:400; font-size:27px;
+  margin:0 0 10px; line-height:1.1 }
+.blurb{ margin:0 0 20px; font-size:13px; line-height:1.75; color:#97a4b4; flex:1 1 auto }
+.go{ align-self:flex-start; padding:11px 20px; border:1px solid #d3a94f; background:#d3a94f;
+  color:#150f04; font-size:11.5px; letter-spacing:.16em; text-transform:uppercase }
+.card:hover .go{ background:#eec97e; border-color:#eec97e }
+footer{ padding:0 clamp(18px,4.5vw,40px) 50px; color:#64707f; font-size:12px;
+  max-width:1160px; margin-inline:auto }
+</style>
 </head>
 <body>
-
-<!-- ============================================================
-     DEMO NOTICE — delete this whole <div> when you go live.
-     ============================================================ -->
-<div class="demo-bar" id="demoBar">
-  <span class="demo-bar__dot" aria-hidden="true"></span>
-  <span>Preview build — not a live website. Every word and image below is a placeholder; the form is inert.</span>
-</div>
-
-<div class="grain" aria-hidden="true"></div>
-<div class="vault-light" aria-hidden="true"></div>
-
-<!-- ticker: intentionally wider than the viewport (marquee) -->
-<div class="ticker" aria-hidden="true">
-  <div class="ticker__track">
-    <span class="ticker__set">
-      LEDGER&nbsp;<i class="rd rd--xs"></i>&nbsp;&nbsp;·&nbsp;&nbsp;ENTRY&nbsp;<i class="rd rd--sm"></i>&nbsp;&nbsp;·&nbsp;&nbsp;RECONCILED&nbsp;<i class="rd rd--xs"></i>&nbsp;&nbsp;·&nbsp;&nbsp;WITNESS&nbsp;<i class="rd rd--md"></i>&nbsp;&nbsp;·&nbsp;&nbsp;TRANSFER&nbsp;<i class="rd rd--sm"></i>&nbsp;&nbsp;·&nbsp;&nbsp;UNACCOUNTED&nbsp;<i class="rd rd--xs"></i>&nbsp;&nbsp;·&nbsp;&nbsp;
-    </span>
-    <span class="ticker__set">
-      LEDGER&nbsp;<i class="rd rd--xs"></i>&nbsp;&nbsp;·&nbsp;&nbsp;ENTRY&nbsp;<i class="rd rd--sm"></i>&nbsp;&nbsp;·&nbsp;&nbsp;RECONCILED&nbsp;<i class="rd rd--xs"></i>&nbsp;&nbsp;·&nbsp;&nbsp;WITNESS&nbsp;<i class="rd rd--md"></i>&nbsp;&nbsp;·&nbsp;&nbsp;TRANSFER&nbsp;<i class="rd rd--sm"></i>&nbsp;&nbsp;·&nbsp;&nbsp;UNACCOUNTED&nbsp;<i class="rd rd--xs"></i>&nbsp;&nbsp;·&nbsp;&nbsp;
-    </span>
-  </div>
-</div>
-
-<header class="site-head" id="siteHead">
-  <div class="wrap site-head__inner">
-    <a class="mark" href="#top" aria-label="Home">
-      <span class="mark__seal" aria-hidden="true">
-        <svg viewBox="0 0 32 32" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.1">
-          <circle cx="16" cy="16" r="13.2"/><circle cx="16" cy="16" r="9.4" stroke-dasharray="2.4 3"/>
-          <path d="M16 8.6v14.8M11.4 12.2h9.2M11.4 19.8h9.2"/>
-        </svg>
-      </span>
-      <span class="mark__text">
-        <!-- LOGO / GAME NAME GOES HERE -->
-        <i class="rd rd--logo" title="your game name"></i>
-        <em class="mark__sub">beta registry</em>
-      </span>
+<div class="bar"><i></i><span>Preview build — not a live website. Every word, figure and image in all three is a placeholder, and none of the forms send anything anywhere.</span></div>
+<div class="wrap">
+  <h1>Three directions, same page</h1>
+  <p class="lede">Identical content and identical sections in all three — hero and email
+  capture, About the game, trailer, Products, Support, FAQ. Only the world changes.</p>
+  <p class="note">Pick the one that feels like your game and I'll take it the rest of the
+  way. The other two get deleted; nothing is wasted by choosing.</p>
+  <div class="grid">
+    <a class="card" href="a/">
+      <img src="thumb-a.png" alt="Dossier direction" width="1280" height="800" loading="lazy">
+      <div class="body">
+        <p class="letter">Direction A</p>
+        <h2 class="name">Dossier</h2>
+        <p class="blurb">Investigative and restrained. Ink, brass and redaction bars — the file someone left on your desk.</p>
+        <span class="go">Open it</span>
+      </div>
     </a>
-    <button class="nav-toggle" id="navToggle" type="button"
-            aria-expanded="false" aria-controls="navPanel" aria-label="Menu">
-      <span class="nav-toggle__bars" aria-hidden="true"><i></i><i></i><i></i></span>
-    </button>
-
-    <nav class="site-head__nav" id="navPanel">
-      <a href="#about">The game</a>
-      <a href="#trailer">Trailer</a>
-      <a href="#products">Products</a>
-      <a href="#support">Support</a>
-      <a href="#faq">FAQ</a>
-      <a class="btn btn--ghost btn--sm" href="#register">Request access</a>
-    </nav>
+    <a class="card" href="b/">
+      <img src="thumb-b.png" alt="Terminal direction" width="1280" height="800" loading="lazy">
+      <div class="body">
+        <p class="letter">Direction B</p>
+        <h2 class="name">Terminal</h2>
+        <p class="blurb">You are logging in, not browsing. Phosphor green on black, scanlines, a blinking cursor and a command prompt for an email field.</p>
+        <span class="go">Open it</span>
+      </div>
+    </a>
+    <a class="card" href="c/">
+      <img src="thumb-c.png" alt="Vault Deco direction" width="1280" height="800" loading="lazy">
+      <div class="body">
+        <p class="letter">Direction C</p>
+        <h2 class="name">Vault Deco</h2>
+        <p class="blurb">The expensive one. Deep green felt, gold leaf, symmetry and ornament — a members' room rather than a case file.</p>
+        <span class="go">Open it</span>
+      </div>
+    </a>
   </div>
-</header>
-
-<main id="top">
-
-  <!-- ================= HERO ================= -->
-  <section class="hero">
-    <div class="wrap hero__grid">
-
-      <div class="hero__copy">
-        <p class="eyebrow reveal">
-          <span class="eyebrow__rule" aria-hidden="true"></span>
-          <span class="eyebrow__txt">Case file <i class="rd rd--xs" title="a case number, if you want one — or delete this"></i> · registration open</span>
-        </p>
-
-        <h1 class="hero__title reveal" style="--d:.06s">
-          Every number<br>
-          hides <em>a</em> <i class="rd rd--word" title="draft headline — replace"></i>.
-        </h1>
-
-        <p class="hero__lede reveal" style="--d:.12s">
-          A browser-based mystery built out of money, motive and missing figures.
-          Beta testing opens in waves — the registry decides who goes first.
-        </p>
-
-        <p class="draft-chip reveal" style="--d:.16s">draft copy — yours replaces it</p>
-
-        <!-- ================= OPT-IN FORM ================= -->
-        <div class="card card--form reveal" id="register" style="--d:.2s">
-          <div class="card__corner card__corner--tl" aria-hidden="true"></div>
-          <div class="card__corner card__corner--br" aria-hidden="true"></div>
-
-          <h2 class="card__title">Put your name in the registry</h2>
-          <p class="card__sub">One email when the beta doors open. Nothing else, ever.</p>
-
-          <!-- NOTE: no action= and no name= on inputs while this is a preview.
-               See README.md § "Connecting Mailchimp" for the two lines to change. -->
-          <form class="form" id="optin" novalidate>
-            <div class="form__row">
-              <label class="sr-only" for="email">Email address</label>
-              <input class="field" id="email" type="email" inputmode="email"
-                     autocomplete="email" placeholder="you@example.com" required>
-              <button class="btn btn--gold" type="submit" id="submitBtn">
-                <span class="btn__label">Request access</span>
-                <svg class="btn__arrow" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"
-                     fill="none" stroke="currentColor" stroke-width="1.6">
-                  <path d="M2 8h11M9 4l4 4-4 4"/>
-                </svg>
-              </button>
-            </div>
-            <p class="form__note" id="formNote">
-              No spam, no resale. Unsubscribe in one click.
-            </p>
-            <p class="form__msg" id="formMsg" role="status" aria-live="polite"></p>
-          </form>
-
-          <ul class="assurance">
-            <li><span aria-hidden="true">✓</span> Free during beta</li>
-            <li><span aria-hidden="true">✓</span> Plays in the browser</li>
-            <li><span aria-hidden="true">✓</span> No download</li>
-          </ul>
-        </div>
-
-        <p class="counter-line reveal" style="--d:.26s">
-          <i class="rd rd--num" title="your live signup count — or delete this line"></i>
-          <span>investigators already on the list</span>
-        </p>
-      </div>
-
-      <!-- ================= COUNTDOWN ================= -->
-      <aside class="hero__side reveal" style="--d:.3s">
-        <div class="dossier">
-          <div class="dossier__head">
-            <span>Beta status</span>
-            <span class="stamp">open</span>
-          </div>
-
-          <div class="countdown" id="countdown" aria-label="Time until beta opens">
-            <div class="cd"><b id="cdD">--</b><span>days</span></div>
-            <div class="cd"><b id="cdH">--</b><span>hrs</span></div>
-            <div class="cd"><b id="cdM">--</b><span>min</span></div>
-            <div class="cd"><b id="cdS">--</b><span>sec</span></div>
-          </div>
-
-          <!-- shown instead of the countdown while no date is set -->
-          <div class="tba" id="cdTba">
-            <span class="tba__pulse" aria-hidden="true"></span>
-            <b>Registration open</b>
-            <span>First wave date to be announced</span>
-          </div>
-
-          <p class="dossier__note" id="cdNote">
-            Add a date in <code>main.js</code> → <code>CONFIG.launchISO</code> and this
-            becomes a live countdown.
-          </p>
-
-          <hr class="rule">
-
-          <dl class="facts">
-            <div><dt>Platform</dt><dd>Browser · desktop &amp; mobile</dd></div>
-            <div><dt>Players</dt><dd><i class="rd rd--sm" title="solo / co-op — confirm"></i></dd></div>
-            <div><dt>Session</dt><dd><i class="rd rd--sm" title="typical play length — confirm"></i></dd></div>
-            <div><dt>Price in beta</dt><dd>Free</dd></div>
-          </dl>
-          <p class="dossier__note dossier__note--tight">Redacted rows are the ones I need from you.</p>
-        </div>
-      </aside>
-
-    </div>
-  </section>
-
-  <!-- ================= ABOUT THE GAME ================= -->
-  <section class="section section--about" id="about">
-    <div class="wrap">
-      <header class="section__head reveal">
-        <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span> <span class="eyebrow__txt">Case notes</span></p>
-        <h2 class="section__title">About the game</h2>
-        <p class="section__lede">
-          A mystery you play in the browser, told through money. You are handed
-          <i class="rd rd--sm" title="what the player is actually handed — statements? accounts? messages?"></i>
-          and asked one question: where did it go, and who moved it.
-        </p>
-        <p class="draft-chip">draft copy — yours replaces it</p>
-      </header>
-
-      <div class="pillars">
-        <article class="pillar reveal">
-          <span class="pillar__no" aria-hidden="true">01</span>
-          <h3>What you're given</h3>
-          <p>Every case opens with <i class="rd rd--sm" title="what a case opens with"></i>
-          and not much else. Read it properly and it starts talking back.</p>
-        </article>
-        <article class="pillar reveal" style="--d:.08s">
-          <span class="pillar__no" aria-hidden="true">02</span>
-          <h3>What you're looking for</h3>
-          <p>The gap. <i class="rd rd--sm" title="what the player is hunting — a discrepancy? a person? a date?"></i>
-          Find it and the rest of the story falls out of it.</p>
-        </article>
-        <article class="pillar reveal" style="--d:.16s">
-          <span class="pillar__no" aria-hidden="true">03</span>
-          <h3>Why it's hard</h3>
-          <p><i class="rd rd--sm" title="the core obstacle — a liar? a deadline? incomplete records?"></i>
-          Nothing here is hidden. It's just easy to look straight past.</p>
-        </article>
-      </div>
-
-      <p class="section__foot reveal">
-        Three blanks above, and a paragraph of mine standing in for yours. Send me the real
-        premise and this section writes itself.
-      </p>
-    </div>
-  </section>
-
-  <!-- ================= TRAILER ================= -->
-  <section class="section" id="trailer">
-    <div class="wrap">
-      <header class="section__head reveal">
-        <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span> <span class="eyebrow__txt">Exhibit A</span></p>
-        <h2 class="section__title">The teaser</h2>
-        <p class="section__lede">Ninety seconds. Enough to raise the question, not enough to answer it.</p>
-      </header>
-
-      <figure class="player reveal" style="--d:.08s">
-        <button class="player__facade" id="playBtn" type="button" aria-label="Play teaser trailer">
-          <span class="player__frame" aria-hidden="true">
-            <span class="player__bars">
-              <i class="rd rd--deco rd--md"></i><i class="rd rd--deco rd--lg"></i><i class="rd rd--deco rd--sm"></i>
-            </span>
-          </span>
-          <span class="player__play" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>
-          </span>
-          <span class="player__label">Teaser trailer<em>awaiting your video file</em></span>
-        </button>
-        <figcaption class="player__cap">
-          Click-to-load: the video only downloads if someone presses play, so the page stays fast.
-          Drop your YouTube or Vimeo ID into <code>CONFIG.trailer</code>.
-        </figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <!-- ================= PRODUCTS ================= -->
-  <section class="section section--products" id="products">
-    <div class="wrap">
-      <header class="section__head reveal">
-        <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span> <span class="eyebrow__txt">On offer</span></p>
-        <h2 class="section__title">Products</h2>
-        <p class="section__lede">
-          Three empty slots, laid out and ready. Tell me what you're actually selling —
-          editions, season passes, merch — and I'll fill them in.
-        </p>
-      </header>
-
-      <div class="products">
-
-        <article class="prod reveal">
-          <div class="prod__top">
-            <span class="chip chip--live">available in beta</span>
-          </div>
-          <h3 class="prod__name"><i class="rd rd--md" title="product name"></i></h3>
-          <p class="prod__desc">One line on what this is and who it's for.
-            <i class="rd rd--sm" title="what's included"></i></p>
-          <p class="prod__price"><i class="rd rd--num" title="price, or 'free'"></i></p>
-          <a class="btn btn--ghost btn--sm prod__cta" href="#register">Get notified</a>
-        </article>
-
-        <article class="prod prod--feature reveal" style="--d:.08s">
-          <div class="prod__top">
-            <span class="chip chip--gold">most likely your headline</span>
-          </div>
-          <h3 class="prod__name"><i class="rd rd--md" title="product name"></i></h3>
-          <p class="prod__desc">The one you want people to land on. Bigger card, brighter
-            border, first in the eye line.
-            <i class="rd rd--sm" title="what's included"></i></p>
-          <p class="prod__price"><i class="rd rd--num" title="price"></i></p>
-          <a class="btn btn--gold btn--sm prod__cta" href="#register">Get notified</a>
-        </article>
-
-        <article class="prod reveal" style="--d:.16s">
-          <div class="prod__top">
-            <span class="chip">coming later</span>
-          </div>
-          <h3 class="prod__name"><i class="rd rd--md" title="product name"></i></h3>
-          <p class="prod__desc">Somewhere to park the thing that isn't ready yet.
-            <i class="rd rd--sm" title="what's included"></i></p>
-          <p class="prod__price"><i class="rd rd--num" title="price, or 'TBA'"></i></p>
-          <a class="btn btn--ghost btn--sm prod__cta" href="#register">Get notified</a>
-        </article>
-
-      </div>
-
-      <p class="section__foot reveal">
-        Nothing here takes a payment. While the beta is the only thing that exists,
-        every button feeds the email list instead — which is the point of the page.
-      </p>
-    </div>
-  </section>
-
-  <!-- ================= SUPPORT ================= -->
-  <section class="section section--support" id="support">
-    <div class="wrap support__grid">
-      <header class="section__head section__head--left reveal">
-        <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span> <span class="eyebrow__txt">Support</span></p>
-        <h2 class="section__title">Need a hand?</h2>
-        <p class="section__lede">
-          Three routes in. Give me the destination for each — an address, a form, a
-          Discord invite — and I'll wire them up.
-        </p>
-      </header>
-
-      <div class="support reveal" style="--d:.08s">
-
-        <article class="sup">
-          <span class="sup__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.4">
-              <path d="M12 17h.01M12 13.5c0-2 2.5-2.2 2.5-4.2A2.5 2.5 0 0 0 9.6 8.6"/>
-              <circle cx="12" cy="12" r="9"/>
-            </svg>
-          </span>
-          <h3>Questions &amp; bugs</h3>
-          <p>Something broken, or something you can't work out.</p>
-          <a class="sup__link" href="#" data-todo="support destination">
-            <i class="rd rd--sm" title="support address, form or help desk"></i>
-          </a>
-        </article>
-
-        <article class="sup">
-          <span class="sup__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.4">
-              <path d="M3 7h18v12H3zM3 7l9 6 9-6M8 7V5h8v2"/>
-            </svg>
-          </span>
-          <h3>Business &amp; press</h3>
-          <p>Publishers, coverage, partnerships, anything commercial.</p>
-          <a class="sup__link" href="#" data-todo="business destination">
-            <i class="rd rd--sm" title="business/press address"></i>
-          </a>
-        </article>
-
-        <article class="sup">
-          <span class="sup__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.4">
-              <circle cx="9" cy="9" r="3.2"/><circle cx="16.5" cy="10.5" r="2.4"/>
-              <path d="M3.5 19c.6-2.9 2.8-4.4 5.5-4.4s4.9 1.5 5.5 4.4M16 14.8c2.2.2 3.8 1.6 4.3 4.2"/>
-            </svg>
-          </span>
-          <h3>Community</h3>
-          <p>Where players will talk to each other, and to you.</p>
-          <a class="sup__link" href="#" data-todo="community destination">
-            <i class="rd rd--sm" title="Discord / Reddit / forum link"></i>
-          </a>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= FAQ ================= -->
-  <section class="section section--faq" id="faq">
-    <div class="wrap faq__grid">
-      <header class="section__head section__head--left reveal">
-        <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span> <span class="eyebrow__txt">Questions on file</span></p>
-        <h2 class="section__title">Before you sign</h2>
-        <p class="section__lede">
-          Answers below are drafts. Anything in a black bar is a fact only you can give me.
-        </p>
-        <a class="btn btn--ghost" href="#register">Request access</a>
-      </header>
-
-      <div class="faq reveal" style="--d:.08s">
-
-        <details class="qa" open>
-          <summary><span>What is it, exactly?</span><i class="qa__x" aria-hidden="true"></i></summary>
-          <div class="qa__body">
-            <p>A mystery game you play in the browser. You work through
-            <i class="rd rd--sm" title="what the player actually handles — statements? accounts? testimony?"></i>
-            to work out where the money went and who moved it. No download, no install.</p>
-          </div>
-        </details>
-
-        <details class="qa">
-          <summary><span>When will I get access?</span><i class="qa__x" aria-hidden="true"></i></summary>
-          <div class="qa__body">
-            <p>No date is fixed yet — which is exactly why the list exists. Invitations go
-            out in waves, and everyone on the registry is emailed in the order they joined,
-            so signing up early is a genuinely earlier seat.</p>
-          </div>
-        </details>
-
-        <details class="qa">
-          <summary><span>What does it cost?</span><i class="qa__x" aria-hidden="true"></i></summary>
-          <div class="qa__body">
-            <p>The beta is free. Pricing after that is
-            <i class="rd rd--sm" title="post-beta pricing — or say 'not decided yet'"></i>.</p>
-          </div>
-        </details>
-
-        <details class="qa">
-          <summary><span>What do I need to play?</span><i class="qa__x" aria-hidden="true"></i></summary>
-          <div class="qa__body">
-            <p>A modern browser and an internet connection. It runs on desktop and mobile.
-            <i class="rd rd--sm" title="anything else? account? headphones?"></i></p>
-          </div>
-        </details>
-
-        <details class="qa">
-          <summary><span>Do I need to know anything about finance?</span><i class="qa__x" aria-hidden="true"></i></summary>
-          <div class="qa__body">
-            <p>No. <i class="rd rd--sm" title="confirm — this is a strong objection-killer if true"></i>
-            Curiosity does more here than a spreadsheet ever will.</p>
-          </div>
-        </details>
-
-        <details class="qa">
-          <summary><span>What happens to my email address?</span><i class="qa__x" aria-hidden="true"></i></summary>
-          <div class="qa__body">
-            <p>It sits on one list and is used to send you a beta invitation. It is not sold,
-            not shared, and every email carries an unsubscribe link.
-            <i class="rd rd--sm" title="link your privacy policy here"></i></p>
-          </div>
-        </details>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= CLOSER ================= -->
-  <section class="closer">
-    <div class="wrap closer__inner reveal">
-      <h2 class="closer__title">The doors open once.</h2>
-      <p class="closer__lede">Be on the list before they do.</p>
-      <a class="btn btn--gold btn--lg" href="#register">Request beta access</a>
-    </div>
-  </section>
-
-</main>
-
-<footer class="site-foot">
-  <div class="wrap site-foot__inner">
-    <span><i class="rd rd--xs" title="your studio name"></i> · <span id="year">2026</span></span>
-    <span class="site-foot__links">
-      <a href="#about">The game</a>
-      <a href="#products">Products</a>
-      <a href="#support">Support</a>
-      <a href="#faq">FAQ</a>
-      <a href="#" data-todo="privacy policy URL">Privacy</a>
-    </span>
-  </div>
-</footer>
-
-<script src="main.js"></script>
+</div>
+<footer>Every black bar in these pages marks a fact I still need from you. Hover one and it says what belongs there.</footer>
 </body>
 </html>

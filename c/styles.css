@@ -660,3 +660,145 @@ body.nav-open .nav-toggle__bars i:nth-child(3){ transform:translateY(-5px) rotat
 @media (max-width:380px){
   .assurance{ gap:6px 14px; font-size:10px }
 }
+
+
+/* --- preview-bar links across the three directions ------------ */
+.demo-bar{ flex-wrap:wrap }
+.demo-bar__nav{ margin-left:auto; display:flex; gap:14px; flex-wrap:wrap }
+.demo-bar__link{ text-decoration:underline; text-underline-offset:3px; white-space:nowrap }
+.demo-bar__link:hover{ opacity:.75 }
+@media (max-width:860px){ .demo-bar__nav{ margin-left:0; width:100% } }
+
+
+/* =============================================================
+   THEME C — VAULT DECO
+   -------------------------------------------------------------
+   Appended after the base stylesheet. Same structure, same
+   sections: deep green felt, gold leaf, symmetry and ornament.
+   The hero is CENTRED here, which is the real layout change.
+   ============================================================= */
+
+:root{
+  --ink:        #06120e;
+  --ink-2:      #08170f;
+  --panel:      #0c2018;
+  --panel-hi:   #112a1f;
+  --line:       rgba(201,162,39,.26);
+  --line-soft:  rgba(201,162,39,.12);
+
+  --text:       #f4ecd8;
+  --text-dim:   #c6bda3;
+  --text-faint: #8d8670;
+
+  --gold:       #c9a227;
+  --gold-hi:    #e8c85c;
+  --teal:       #86b97a;
+
+  --redact:     #10281e;
+
+  --serif: "Bodoni Moda", Didot, "Times New Roman", serif;
+  --mono:  "Jost", "Century Gothic", system-ui, sans-serif;
+
+  --r: 0;                    /* deco is sharp — no rounded corners */
+}
+
+body{ font-size:15.5px; line-height:1.75; letter-spacing:.01em }
+
+.hero__title{ font-size:clamp(40px,5.6vw,68px); line-height:1.08; letter-spacing:-.005em }
+.section__title,.closer__title{ letter-spacing:.004em }
+.card__title,.prod__name,.pillar h3,.tba b{ letter-spacing:.005em }
+
+/* ---- centred, symmetrical hero — the layout change ----------- */
+.hero__grid{
+  grid-template-columns:minmax(0,1fr);
+  max-width:720px; margin-inline:auto; text-align:center;
+}
+.hero .eyebrow{ justify-content:center }
+.hero__lede{ margin-inline:auto }
+.hero__title .rd{ top:-.04em }
+.counter-line{ justify-content:center }
+.assurance{ justify-content:center }
+.form__note,.form__msg{ text-align:center }
+.hero__side{ margin-top:8px }
+
+/* the rule either side of an eyebrow, deco-fashion */
+.eyebrow__rule{ background:linear-gradient(90deg,transparent,var(--gold)) }
+.hero .eyebrow__txt::after,.section__head:not(.section__head--left) .eyebrow__txt::after{
+  content:""; display:inline-block; width:34px; height:1px; margin-left:12px;
+  vertical-align:middle; background:linear-gradient(90deg,var(--gold),transparent);
+}
+
+/* ---- ornament: a double rule under every section heading ----- */
+.section__title::after{
+  content:""; display:block; width:96px; height:0; margin:20px auto 0;
+  border-top:1px solid var(--gold); border-bottom:1px solid var(--gold);
+  padding-top:3px; opacity:.6;
+}
+.section__head--left .section__title::after{ margin-inline:0 }
+
+/* ---- gold-framed cards with deco corners -------------------- */
+.card,.dossier,.pillar,.prod,.sup,.player__facade{ border-radius:0 }
+.card--form{
+  border:1px solid var(--gold); position:relative;
+  box-shadow:0 0 0 5px rgba(201,162,39,.09), 0 30px 70px -44px #000;
+}
+.card__corner{ width:16px; height:16px; opacity:.9; border-width:2px }
+.card__corner--tl{ top:7px; left:7px } .card__corner--br{ right:7px; bottom:7px }
+
+.pillar{ border-top:2px solid var(--gold); background:linear-gradient(180deg,rgba(17,42,31,.75),rgba(12,32,24,.75)) }
+.pillar__no{ font-size:15px; letter-spacing:.3em }
+
+.prod{ border-top:2px solid rgba(201,162,39,.45) }
+.prod--feature{ border-top-color:var(--gold); box-shadow:0 0 0 4px rgba(201,162,39,.1) }
+.chip{ border-radius:0 }
+
+.dossier{
+  background:linear-gradient(180deg,rgba(17,42,31,.9),rgba(12,32,24,.9));
+  border:1px solid var(--gold);
+  box-shadow:0 0 0 5px rgba(201,162,39,.08);
+}
+.stamp{ border-radius:0; transform:none; letter-spacing:.24em }
+.cd{ border-radius:0; border-color:rgba(201,162,39,.2) }
+
+/* ---- felt instead of film grain, with a soft gold wash ------- */
+.grain{
+  opacity:.5; mix-blend-mode:soft-light;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 1px, transparent 1px 7px),
+    repeating-linear-gradient(-45deg, rgba(0,0,0,.05) 0 1px, transparent 1px 7px);
+}
+.vault-light{
+  background:
+    radial-gradient(56% 42% at 50% 4%, rgba(201,162,39,.17), transparent 64%),
+    radial-gradient(44% 38% at 16% 34%, rgba(134,185,122,.08), transparent 66%);
+}
+
+/* ---- redaction becomes an empty engraved plaque -------------- */
+.rd{
+  background:linear-gradient(180deg, rgba(201,162,39,.10), rgba(201,162,39,.04)), var(--redact);
+  background-size:100% 100%, 100% 100%;
+  box-shadow:inset 0 0 0 1px rgba(201,162,39,.42);
+  border-radius:0; animation:none;
+}
+
+/* ---- buttons: flat gold, wide tracking ---------------------- */
+.btn{ border-radius:0; letter-spacing:.2em; font-weight:400 }
+.btn--gold{ color:#0a1a12 }
+.field{ border-radius:0; border-color:rgba(201,162,39,.3); text-align:center }
+.form__row::before{ display:none }
+
+.demo-bar{ background:#151005; border-bottom-color:rgba(201,162,39,.35); color:#e2ce93 }
+.draft-chip{ border-radius:0 }
+.player__play{ border-radius:0; width:78px; height:66px }
+.player__play::after{ border-radius:0 }
+.sup__icon{ border-radius:0 }
+.ticker__set{ letter-spacing:.4em }
+
+@media (max-width:640px){
+  .hero__grid{ text-align:left }
+  .hero .eyebrow{ justify-content:flex-start }
+  .counter-line,.assurance{ justify-content:flex-start }
+  .form__note,.form__msg{ text-align:left }
+  .field{ text-align:left }
+  .section__title::after{ margin-inline:auto }
+}
